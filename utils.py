@@ -40,11 +40,14 @@ filepath = {
 columns = ["URI", "@type", "title", "provenance", "provenance_date", "provenance_type", "material", "description", "collection"]
 
 # fetch json based on key
-async def fetch_json(key):
+def fetch_json(key):
     with open(filepath[key], "w") as f:
-        x = subprocess.run(endpoints[key], shell=True, stdout=f, text=True)
-        print("Done with fetching data from {}".format(key))
-        return x
+        process = subprocess.Popen(endpoints[key], shell=True, stdout=f, text=True)
+        try:
+            outs, errs = process.communicate(timeout=15)
+        except subprocess.TimeoutExpired as e:
+            process.kill()
+            outs, errs = process.communicate()
 
 
 # create dataframe for each database from json file
@@ -119,7 +122,3 @@ def fetch_description(df, range, json):
         df.at[range, "description"] = description
     except Exception:
         pass
-
-
-#[{'@type': 'Verwerving', 'Verwerving.overgedragenAan': ['http://www.wikidata.org/entity/Q1809071'], 'Verwerving.overdrachtVan': ['https://stad.gent/id/mensgemaaktobject/dmg/530026423'], 'Activiteit.gebruikteTechniek': [{'@id': 'https://stad.gent/id/concept/thesaurus/530009067', 'http://www.w3.org/2000/01/rdf-schema#label': 'oningeschreven gevonden'}], 'Conditie.periode': {'@type': 'Periode', 'Periode.einde': '2017', 'Periode.begin': '2017'}}]
-

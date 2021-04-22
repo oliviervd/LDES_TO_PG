@@ -14,28 +14,37 @@ keys = ["DMG", "HVA", "STAM", "IM", "THES", "AGENT"]
 #TODO: redefine function to be ASYNC
 
 
-async def fetch_dcat():
-    #TODO: debug; doesnt' loop?
-    DMG = fetch_json("DMG")
-    # HVA = fetch_json("HVA")
-    # STAM = fetch_json("STAM")
-    # IM = fetch_json("IM")
-    # THES = fetch_json("THES")
-    # AGENT = fetch_json("AGENT")
-    await asyncio.wait([DMG])
-    print("FINISHED SYNC WITH LDES_CLIENT")
-
-loop = asyncio.new_event_loop()
-loop.run_until_complete(fetch_dcat())
+# async def fetch_dcat():
+#     #TODO: debug; doesnt' loop?
+#     for future in asyncio.as_completed(map(fetch_json(), keys)):
+#         result = await future
+#     print("FINISHED SYNC WITH LDES_CLIENT")
+#
+# loop = asyncio.new_event_loop()
+# loop.run_until_complete(fetch_dcat())
+#
+# if __name__ == "__main__":
+#     try:
+#         loop = asyncio.new_event_loop()
+#         loop.run_until_complete(fetch_dcat())
+#     except Exception as e:
+#         pass
+#     finally:
+#         loop.close()
 
 if __name__ == "__main__":
     try:
-        loop = asyncio.new_event_loop()
-        loop.run_until_complete(fetch_dcat())
-    except Exception as e:
+        fetch_json("DMG")
+        print("DMG fetched")
+        fetch_json("HVA")
+        print("HVA fetched")
+        fetch_json("STAM")
+        print("STAM fetched")
+        fetch_json("IM")
+        print("IM fetched")
+    except Exception:
         pass
-    finally:
-        loop.close()
+
 
 
 
