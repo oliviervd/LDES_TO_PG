@@ -1,10 +1,4 @@
-import subprocess
-import pandas as pd
-from pprint import pprint
-from utils import fetch_json
-import asyncio
-
-#todo: parse endpoints from DCAT https://lodi.imec.ugent/coghent/
+from utils.utils import fetch_json
 
 #todo: add archive
 keys = ["DMG", "HVA", "STAM", "IM", "THES", "AGENT"]
@@ -34,17 +28,15 @@ keys = ["DMG", "HVA", "STAM", "IM", "THES", "AGENT"]
 
 if __name__ == "__main__":
     try:
-        fetch_json("DMG")
-        print("DMG fetched")
-        fetch_json("HVA")
-        print("HVA fetched")
-        fetch_json("STAM")
-        print("STAM fetched")
         fetch_json("IM")
-        print("IM fetched")
+    # try:
+    #     fetch_json("DMG")
+    #     print("DMG fetched")
+    #     fetch_json("HVA")
+    #     print("HVA fetched")
+    #     fetch_json("STAM")
+    #     print("STAM fetched")
+    #     fetch_json("IM")
+    #     print("IM fetched")
     except Exception:
         pass
-
-
-
-

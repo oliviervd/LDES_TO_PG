@@ -1,13 +1,13 @@
 #PARSE DATA FROM JSON TO DATAFRAME
 
 import pandas as pd
-from utils import *
+from utils.utils import *
 import json
 
 df_dmg = pd.DataFrame(generate_dataframe("DMG"))
 
-for i in range(0, len(columns)):
-    df_dmg.insert(i, columns[i], "")
+for i in range(0, len(columns_obj)):
+    df_dmg.insert(i, columns_obj[i], "")
 
 for i in range(0, len(df_dmg)):
     x = df_dmg.loc[i]
@@ -19,12 +19,20 @@ for i in range(0, len(df_dmg)):
     df_dmg.at[i, "@type"] = type
 
     fetch_title(df_dmg, i, j)
+    fetch_owner(df_dmg, i, j)
+    fetch_objectname(df_dmg, i, j)
     fetch_provenance(df_dmg, i, j)
-    # fetch_provenance_date(df_dmg, i, j)
-    fetch_techniek(df_dmg, i , j)
+    fetch_creator(df_dmg, i, j)
+    fetch_creator_role(df_dmg,i ,j)
+    fetch_creator_place(df_dmg, i, j)
+    #fetch_provenance_date(df_dmg, i, j)
+    fetch_material(df_dmg, i , j)
     fetch_collection(df_dmg, i, j)
     fetch_description(df_dmg, i, j)
+    fetch_timestamp(df_dmg, i, j)
 
+# #TODO: add to mongoDB
+# df_to_mondb(df_dmg, "DMG")
 
 
 

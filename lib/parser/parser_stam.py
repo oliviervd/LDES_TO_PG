@@ -1,14 +1,14 @@
 #PARSE DATA FROM JSON TO DATAFRAME
 
 import pandas as pd
-from utils import *
+from utils.utils import *
 import json
 
 df_stam = pd.DataFrame(generate_dataframe("STAM"))
 
 columns = ["URI", "@type", "title ", "provenance", "material", "description", "collection"]
-for i in range(0, len(df_stam)):
-    df_stam.insert(i, columns[i], "")
+for i in range(0, len(columns_obj)):
+    df_stam.insert(i, columns_obj[i], "")
 
 for i in range(0, len(df_stam)):
     x = df_stam.loc[i]
@@ -20,8 +20,17 @@ for i in range(0, len(df_stam)):
     df_stam.at[i, "@yppe"] = type
 
     fetch_title(df_stam, i, j)
+    fetch_owner(df_stam, i, j)
+    fetch_objectname(df_stam, i, j)
     fetch_provenance(df_stam, i, j)
-    fetch_techniek(df_stam, i, j)
+    fetch_creator(df_stam, i, j)
+    fetch_creator_role(df_stam,i ,j)
+    fetch_creator_place(df_stam, i, j)
+    #fetch_provenance_date(df_stam, i, j)
+    fetch_material(df_stam, i , j)
     fetch_collection(df_stam, i, j)
     fetch_description(df_stam, i, j)
+    fetch_timestamp(df_stam, i, j)
+
+#TODO: add to ES
 

@@ -1,7 +1,7 @@
 #PARSE DATA FROM JSON TO DATAFRAME
 
 import pandas as pd
-from utils import *
+from utils.utils import *
 import json
 
 df_im = pd.DataFrame(generate_dataframe("IM"))
@@ -20,7 +20,16 @@ for i in range(0, len(df_im)):
     df_im.at[i, "@type"] = type
 
     fetch_title(df_im, i, j)
+    fetch_owner(df_im, i, j)
+    fetch_objectname(df_im, i, j)
     fetch_provenance(df_im, i, j)
-    fetch_techniek(df_im, i, j)
+    fetch_creator(df_im, i, j)
+    fetch_creator_role(df_im,i ,j)
+    fetch_creator_place(df_im, i, j)
+    #fetch_provenance_date(df_dmg, i, j)
+    fetch_material(df_im, i , j)
     fetch_collection(df_im, i, j)
     fetch_description(df_im, i, j)
+    fetch_timestamp(df_im, i, j)
+
+#TODO: add to mongoDB
