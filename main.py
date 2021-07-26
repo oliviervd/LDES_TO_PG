@@ -28,7 +28,7 @@ keys = ["DMG", "HVA", "STAM", "IM", "THES", "AGENT"]
 
 if __name__ == "__main__":
     try:
-        fetch_json("IM")
+        fetch_json("DMG")
     # try:
     #     fetch_json("DMG")
     #     print("DMG fetched")

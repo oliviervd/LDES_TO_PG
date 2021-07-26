@@ -6,30 +6,29 @@ import subprocess
 from datetime import datetime
 import pandas as pd
 
-today = time.time()
-
-
-fetch_from = "2021-01-01T15:48:12.309Z"
+today = time.localtime()
+time_str = time.strftime("%m-%d-%YT%H:%M:%S.309Z", today)
+fetch_from = time_str
 
 endpoints = {
     "DMG": f"actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-               f"/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce "
-               f"true https://lodi.ilabt.imec.be/coghent/dmg/objecten",
+               f"/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
+               f"true https://apidg.gent.be/opendata/adlib2eventstream/v1/dmg/objecten",
     "HVA": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-               "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce "
-               "true https://lodi.ilabt.imec.be/coghent/hva/objecten",
+               "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
+               "true https://apidg.gent.be/opendata/adlib2eventstream/v1/hva/objecten",
     "STAM": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-                "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce "
-                "true https://lodi.ilabt.imec.be/coghent/stam/objecten",
+                "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
+                "true https://apidg.gent.be/opendata/adlib2eventstream/v1/stam/objecten",
     "IM": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-              "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce "
-              "true https://lodi.ilabt.imec.be/coghent/industriemuseum/objecten",
+              "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
+              "true https://apidg.gent.be/opendata/adlib2eventstream/v1/industriemuseum/objecten",
     "THES": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-                "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce "
-                "true https://lodi.ilabt.imec.be/coghent/adlib/thesaurus",
+                "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
+                "true https://apidg.gent.be/opendata/adlib2eventstream/v1/adlib/thesaurus",
     "AGENT": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-                 "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z "
-                 "--emitMemberOnce true https://lodi.ilabt.imec.be/coghent/adlib/personen"
+                 "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
+                 "--emitMemberOnce true https://apidg.gent.be/opendata/adlib2eventstream/v1/adlib/personen"
 }
 
 filepath = {
@@ -41,7 +40,8 @@ filepath = {
     "AGENT": "/Users/huynslol/PycharmProjects/DASHBOARD/data/agents.json"
 }
 
-columns_obj = ["URI", "timestamp", "@type", "owner", "title", "object_name", "creator", "creator_role", "creation_place",  "provenance_date", "provenance_type", "material", "description", "collection", "association"]
+columns_obj = ["URI", "timestamp", "@type", "owner", "title", "object_name", "object_name_id", "creator", "creator_role", "creation_place",
+               "provenance_date", "provenance_type", "material", "material_source", "description", "collection", "association", "location"]
 
 # fetch json based on key
 def fetch_json(key):
@@ -78,7 +78,7 @@ def generate_dataframe(key):
 def fetch_provenance(df, range, json):
     try:
         prov = json["MaterieelDing.isOvergedragenBijVerwerving"]
-        # df.at[range, "provenance"] = prov
+        # df.at[range_, "provenance"] = prov
         for x in prov:
             try:
                 prov_date = x["Conditie.periode"]["Periode.einde"]
@@ -114,6 +114,34 @@ def fetch_material(df, range, json):
     except Exception as e:
         pass
 
+
+#TODO: komt niet mee in de client?
+def fetch_material_source(df, range, json):
+    try:
+        material_names_auth = []
+        try:
+            for i in json["MaterieelDing.bestaatUit"]:
+                # print(i)
+                for a in i["MensgemaaktObject.materiaal"]:
+                    mi = a["@id"]
+                    # print(mi)
+                    material_names_auth.append(mi)
+        except Exception:
+            pass
+        print(material_names_auth)
+        df.at[range, "material_source"] = material_names_auth
+    except Exception:
+        pass
+
+# def fetch_material_source(df, range, json):
+#     try:
+#         material = json["MaterieelDing.bestaatUit"]
+#         material_s = []
+#         for s in material:
+#             material.append(s["Entiteit.beschrijving"])
+#         df.atrange[range, "material_source"] = material_s
+#     except Exception:
+#         pass
 
 # fetch collection
 #[[{'@id': 'http://vocab.getty.edu/aat/300257284', 'http://www.w3.org/2000/01/rdf-schema#label': {'@language': 'nl', '@value': 'huishoudelijke apparaten (ok)'}}], [{'@id': 'https://stad.gent/id/concept/530009137', 'http://www.w3.org/2000/01/rdf-schema#label': {'@language': 'nl', '@value': 'Nova'}}]]
@@ -185,49 +213,55 @@ def fetch_creator_role(df, range, json):
 def fetch_objectname(df, range, json):
     try:
         object_names = []
-        obj_n = []
         # object_names.append(json["Entiteit.classificatie"])
         try:
-            # for i in object_names:
-            #     for x in i:
-            #         obj_n.append(x["Classificatie.toegekendType"])
-            #         # print(x["Classificatie.toegekendType"])
             for i in json["Entiteit.classificatie"]:
                 for a in i["Classificatie.toegekendType"]:
                     on = a["skos:prefLabel"]["@value"]
                     object_names.append(on)
                     df.at[range, "object_name"] = object_names
-            # for obj in obj_n:
-                # print(type(obj[1]))
-                # print(obj[1])
-            # for i in object_names:
-            #     obj_n.append(json["Classificatie.toegekendType"])
-            #     print(object_names)
-
         except Exception:
             pass
+    except Exception:
+        pass
 
-        # print(object_names)
-
+#TODO: classificatie.id (link naar auhtority)
+def fetch_objectnaam_id(df, range, json):
+    try:
+        object_names_auth = []
+        try:
+            for i in json["Entiteit.classificatie"]:
+                for a in i["Classificatie.toegekendType"]:
+                    oi = a["@id"]
+                    object_names_auth.append(oi)
+                    df.at[range, "object_name_id"] = object_names_auth
+        except Exception:
+            pass
     except Exception:
         pass
 
 
-def fetch_association(df, range, json):
+def fetch_association(df, range_, json):
     try:
         associations = []
         for i in json["MensgemaaktObject.draagt"]:
             for a in i["Werk.gaatOver"]:
                 ass = a["skos:prefLabel"]["@value"]
                 associations.append(ass)
-                df.at[range, "association"] = associations
+                df.at[range_, "association"] = associations
             # print(associations)
         print(associations)
     except Exception:
         pass
 
 
+def fetch_location(df, range, json):
+    try:
+       location = json["MensgemaaktObject.locatie"]["http://www.w3.org/2004/02/skos/core#note"]
+       df.at[range, "location"] = location
+    except Exception:
+        pass
+
+
 def safe_value(field_val):
     return field_val if not pd.isna(field_val) else "Other"
-
-
