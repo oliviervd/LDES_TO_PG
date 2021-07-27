@@ -28,15 +28,15 @@ keys = ["DMG", "HVA", "STAM", "IM", "THES", "AGENT"]
 
 if __name__ == "__main__":
     try:
+        fetch_json("IM")
+        print("IM fetched")
         fetch_json("DMG")
-    # try:
-    #     fetch_json("DMG")
-    #     print("DMG fetched")
-    #     fetch_json("HVA")
-    #     print("HVA fetched")
-    #     fetch_json("STAM")
-    #     print("STAM fetched")
-    #     fetch_json("IM")
-    #     print("IM fetched")
+        print("DMG fetched")
+        fetch_json("HVA")
+        print("HVA fetched")
+        fetch_json("STAM")
+        print("STAM fetched")
+        fetch_json("AGENT")
+        print("AGENTS fetched")
     except Exception:
         pass

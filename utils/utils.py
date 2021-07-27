@@ -12,32 +12,34 @@ fetch_from = time_str
 
 endpoints = {
     "DMG": f"actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-               f"/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
-               f"true https://apidg.gent.be/opendata/adlib2eventstream/v1/dmg/objecten",
+               f"/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
+               f" https://apidg.gent.be/opendata/adlib2eventstream/v1/dmg/objecten",
     "HVA": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-               "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
-               "true https://apidg.gent.be/opendata/adlib2eventstream/v1/hva/objecten",
+               "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
+               " https://apidg.gent.be/opendata/adlib2eventstream/v1/hva/objecten",
     "STAM": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-                "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
-                "true https://apidg.gent.be/opendata/adlib2eventstream/v1/stam/objecten",
+                "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
+                " https://apidg.gent.be/opendata/adlib2eventstream/v1/stam/objecten",
     "IM": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-              "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
-              "true https://apidg.gent.be/opendata/adlib2eventstream/v1/industriemuseum/objecten",
+              "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
+              " https://apidg.gent.be/opendata/adlib2eventstream/v1/industriemuseum/objecten",
     "THES": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-                "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
-                "true https://apidg.gent.be/opendata/adlib2eventstream/v1/adlib/thesaurus",
+                "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
+                " https://apidg.gent.be/opendata/adlib2eventstream/v1/adlib/thesaurus",
     "AGENT": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-                 "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime 2021-01-01T15:48:12.309Z --emitMemberOnce=true --disablePolling=true"
-                 "--emitMemberOnce true https://apidg.gent.be/opendata/adlib2eventstream/v1/adlib/personen"
+                 "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld --fromTime" + fetch_from + " --emitMemberOnce true --disablePolling true"
+                 " https://apidg.gent.be/opendata/adlib2eventstream/v1/adlib/personen"
 }
 
+print(endpoints)
+
 filepath = {
-    "DMG": "/Users/huynslol/PycharmProjects/DASHBOARD/data/dmg_obj.json",
-    "HVA": "/Users/huynslol/PycharmProjects/DASHBOARD/data/hva_obj.json",
-    "STAM": "/Users/huynslol/PycharmProjects/DASHBOARD/data/stam_obj.json",
-    "IM": "/Users/huynslol/PycharmProjects/DASHBOARD/data/im_obj.json",
-    "THES": "/Users/huynslol/PycharmProjects/DASHBOARD/data/thes.json",
-    "AGENT": "/Users/huynslol/PycharmProjects/DASHBOARD/data/agents.json"
+    "DMG": "/Users/huynslol/PycharmProjects/DASHBOARD/data/dmg_obj_temp.json",
+    "HVA": "/Users/huynslol/PycharmProjects/DASHBOARD/data/hva_obj_temp.json",
+    "STAM": "/Users/huynslol/PycharmProjects/DASHBOARD/data/stam_obj_temp.json",
+    "IM": "/Users/huynslol/PycharmProjects/DASHBOARD/data/im_obj_temp.json",
+    "THES": "/Users/huynslol/PycharmProjects/DASHBOARD/data/thes_temp.json",
+    "AGENT": "/Users/huynslol/PycharmProjects/DASHBOARD/data/agents_temp.json"
 }
 
 columns_obj = ["URI", "timestamp", "@type", "owner", "title", "object_name", "object_name_id", "creator", "creator_role", "creation_place",
@@ -128,7 +130,7 @@ def fetch_material_source(df, range, json):
                     material_names_auth.append(mi)
         except Exception:
             pass
-        print(material_names_auth)
+        # print(material_names_auth)
         df.at[range, "material_source"] = material_names_auth
     except Exception:
         pass

@@ -17,7 +17,7 @@ x = df_on_trans["id"] = df_on_trans.str.rsplit("/", 1)
 for id in x:
     try:
         AAT_term = id[-1]
-        print(AAT_term)
+        # print(AAT_term)
         hash = aat.get_by_id(AAT_term)
         l_temp = []
         # l_temp.append(AAT_term)
@@ -35,7 +35,7 @@ for id in x:
         newRow = pd.DataFrame(np.array(l_temp).reshape(1, numEl),
                             columns=list(df_translation.columns))
         df_translation = df_translation.append(newRow)
-        print(l_temp)
+        # print(l_temp)
 
     except:
         print("invalid ID")
