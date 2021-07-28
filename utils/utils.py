@@ -34,21 +34,29 @@ endpoints = {
 print(endpoints)
 
 filepath = {
-    "DMG": "/Users/huynslol/PycharmProjects/DASHBOARD/data/dmg_obj_temp.json",
-    "HVA": "/Users/huynslol/PycharmProjects/DASHBOARD/data/hva_obj_temp.json",
-    "STAM": "/Users/huynslol/PycharmProjects/DASHBOARD/data/stam_obj_temp.json",
-    "IM": "/Users/huynslol/PycharmProjects/DASHBOARD/data/im_obj_temp.json",
-    "THES": "/Users/huynslol/PycharmProjects/DASHBOARD/data/thes_temp.json",
-    "AGENT": "/Users/huynslol/PycharmProjects/DASHBOARD/data/agents_temp.json"
+    "DMG": "/Users/huynslol/PycharmProjects/DASHBOARD/data/dmg_obj.json",
+    "HVA": "/Users/huynslol/PycharmProjects/DASHBOARD/data/hva_obj.json",
+    "STAM": "/Users/huynslol/PycharmProjects/DASHBOARD/data/stam_obj.json",
+    "IM": "/Users/huynslol/PycharmProjects/DASHBOARD/data/im_obj.json",
+    "THES": "/Users/huynslol/PycharmProjects/DASHBOARD/data/thes.json",
+    "AGENT": "/Users/huynslol/PycharmProjects/DASHBOARD/data/agents.json"
 }
 
-columns_obj = ["URI", "timestamp", "@type", "owner", "title", "object_name", "object_name_id", "creator", "creator_role", "creation_place",
+columns_obj = ["URI", "timestamp", "@type", "owner", "objectnumber", "title", "object_name", "object_name_id", "creator", "creator_role","creators", "creation_place",
                "provenance_date", "provenance_type", "material", "material_source", "description", "collection", "association", "location"]
 
 # fetch json based on key
 def fetch_json(key):
     with open(filepath[key], "w") as f:
         p = subprocess.run(endpoints[key], shell=True, stdout=f, text=True)
+
+# fetch objectnumber
+def fetch_objectnumber(df, range, json):
+    try:
+        on = json["Object.identificator"]["Identificator.identificator"]
+        df.at[range, "objectnumber"] = on
+    except Exception:
+        pass
 
 # fetch_owner
 def fetch_owner(df, range, json):
@@ -182,34 +190,55 @@ def fetch_timestamp(df, range, json):
 #[{'@id': 'https://stad.gent/id/entiteit/530001198', '@type': 'Agent', 'http://www.w3.org/2000/01/rdf-schema#label': {'@language': 'nl', '@value': 'Nova'}}]
 
 def fetch_creator(df, range, json):
+    creators = []
     try:
         creator = json["MaterieelDing.productie"]["Activiteit.uitgevoerdDoor"]
-        creators = []
         for c in creator:
             creators.append(c["http://www.w3.org/2000/01/rdf-schema#label"]["@value"])
         df.at[range, "creator"] = creators
     except Exception:
-        pass
+        try:
+            for i in json["MaterieelDing.productie"]:
+                cr = i["Activiteit.uitgevoerdDoor"]
+                for a in cr:
+                    crea = a["http://www.w3.org/2000/01/rdf-schema#label"]["@value"]
+                    creators.append(crea)
+                    df.at[range, "creator"] = creators
+        except Exception:
+            pass
 
-
-def fetch_creator_place(df, range, json):
-    try:
-        creation_place = json["MaterieelDing.productie"]["Gebeurtenis.plaats"]
-        c_places = []
-        for place in creation_place:
-            c_places.append(place["skos:prefLabel"]["@value"])
-        df.at[range, "creation_place"] = c_places
-    except Exception:
-        pass
-
-#TODO: fetch_creator_role
-# [{'@id': 'https://stad.gent/id/entiteit/530001198', '@type': 'Agent', 'http://www.w3.org/2000/01/rdf-schema#label': {'@language': 'nl', '@value': 'Nova'}}]
 def fetch_creator_role(df, range, json):
+    creator_role = []
     try:
-        creator_role = json["MaterieelDing.productie"]
+        role = json["MaterieelDing.productie"]["@type"]
+        creator_role.append(role)
         df.at[range, "creator_role"] = creator_role
     except Exception:
-        pass
+        try:
+            for i in json["MaterieelDing.productie"]:
+                role = i["@type"]
+                creator_role.append(role)
+                df.at[range, "creator_role"] = creator_role
+        except Exception:
+            pass
+
+def fetch_creator_place(df, range, json):
+    ## todo: fix not parsing multiple lines
+    creator_place = []
+    try:
+        for p in json["MaterieelDing.productie"]["Gebeurtenis.plaats"]:
+            place = p["skos:prefLabel"]["@value"]
+            creator_place.append(place)
+        df.at[range, "creation_place"] = creator_place
+    except Exception:
+        try:
+            for p in json["MaterieelDing.productie"]:
+                for a in p["Gebeurtenis.plaats"]:
+                    place = p["skos:prefLabel"]["@value"]
+                    creator_place.append(place)
+                df.at[range, "creation_place"] = creator_place
+        except Exception:
+            pass
 
 # OBJECTNAAM
 def fetch_objectname(df, range, json):

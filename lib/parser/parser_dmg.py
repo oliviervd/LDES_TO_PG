@@ -20,6 +20,7 @@ def generate_dataframe_DMG():
         df_dmg.at[i, "@type"] = type
 
         fetch_title(df_dmg, i, j)
+        fetch_objectnumber(df_dmg, i, j)
         fetch_owner(df_dmg, i, j)
         fetch_location(df_dmg, i, j)
         fetch_objectname(df_dmg, i, j)
@@ -33,7 +34,10 @@ def generate_dataframe_DMG():
         fetch_collection(df_dmg, i, j)
         fetch_description(df_dmg, i, j)
         fetch_timestamp(df_dmg, i, j)
+
     return df_dmg
+
+
 # #TODO: add to mongoDB
 # df_to_mondb(df_dmg, "DMG")
 

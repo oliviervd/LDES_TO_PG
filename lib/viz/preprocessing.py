@@ -4,13 +4,11 @@ from lib.parser.parser_im import generate_dataframe_im
 from lib.parser.parser_dmg import generate_dataframe_DMG
 from lib.parser.parser_hva import generate_dataframe_hva
 from lib.parser.parser_stam import generate_dataframe_stam
-from lib.parser.parser_agent import df_agents
 
 df_im = generate_dataframe_im()
 df_stam = generate_dataframe_stam()
 df_dmg = generate_dataframe_DMG()
 df_hva = generate_dataframe_hva()
-
 df_all = pd.concat([df_dmg, df_im, df_hva, df_stam])
 
 
