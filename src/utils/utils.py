@@ -8,11 +8,13 @@ import pandas as pd
 
 today = time.localtime()
 time_str = time.strftime("%m-%d-%YT%H:%M:%S.309Z", today)
-# fetch_from = time_str
+
+#define time from when to start fetching LDES.
 fetch_from = "2021-01-01T15:48:12.309Z"
 context = "/Users/huynslol/PycharmProjects/LDES_TO_PG/utils/context.jsonld"
 
 endpoints = {
+## CLI commands to fetch LDES from actor-init-ldes-client
     "DMG": f"actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
                f"" + context + " --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
                f" https://apidg.gent.be/opendata/adlib2eventstream/v1/dmg/objecten",
@@ -39,14 +41,16 @@ endpoints = {
 print(endpoints)
 
 filepath = {
-    "DMG": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/dmg_obj.json",
-    "HVA": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/hva_obj.json",
-    "STAM": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/stam_obj.json",
-    "IM": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/im_obj.json",
-    "ARCH": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/arch_obj.json",
-    "THES": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/thes.json",
-    "AGENT": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/agents.json"
+    "DMG": "LDES_TO_PG/data/dmg_obj.json",
+    "HVA": "LDES_TO_PG/data/hva_obj.json",
+    "STAM": "LDES_TO_PG/data/stam_obj.json",
+    "IM": "LDES_TO_PG/data/im_obj.json",
+    "ARCH": "LDES_TO_PG/data/arch_obj.json",
+    "THES": "LDES_TO_PG/data/thes.json",
+    "AGENT": "LDES_TO_PG/data/agents.json"
 }
+
+##todo: add function to generat json files and data directory if not already created
 
 columns_obj = ["URI", "timestamp", "@type", "owner", "objectnumber", "title", "object_name", "object_name_id", "creator", "creator_role", "creation_date", "creation_place",
                "provenance_date", "provenance_type", "material", "material_source", "description", "collection", "association", "location"]
@@ -55,11 +59,13 @@ columns_thes = ["URI", "timestamp", "term", "ext_URI"]
 
 # fetch json based on key
 def fetch_json(key):
+    """read json from command line interface and write to .json file"""
     with open(filepath[key], "w") as f:
         p = subprocess.run(endpoints[key], shell=True, stdout=f, text=True)
 
 # fetch objectnumber
 def fetch_objectnumber(df, range, json):
+    """parse object number from json"""
     try:
         on = json["Object.identificator"]["Identificator.identificator"]
         df.at[range, "objectnumber"] = on
