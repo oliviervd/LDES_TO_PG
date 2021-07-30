@@ -14,6 +14,7 @@ if __name__ == "__main__":
     parser.add_argument("--fetch", help="choose collections to fetch", choices=["DMG", "IM", "STAM", "HVA",
                                                                                 "ARCHIEF", "THESAURUS", "AGENTS"])
     parser.add_argument("--timestamp", default = "2021-01-01T15:48:12.309Z")
+    parser.add_argument("--result", choices=["pg", "csv", "xlsx"])
     args = parser.parse_args()
 
 
