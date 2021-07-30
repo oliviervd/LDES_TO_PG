@@ -1,6 +1,8 @@
 # LDES_TO_PG [WORK IN PROGRESS]
 
-replicate coghent Linked Data Event Streams into postgres or export as csv, xcel. Available collections: 
+replicate coghent Linked Data Event Streams into PostgreSQL docker container or export as csv, xcel. 
+
+Available collections: 
 * Design Museum Gent (DMG)
 * Huis van Alijn (HVA)
 * Industriemuseum (IM)
