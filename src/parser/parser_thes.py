@@ -1,7 +1,6 @@
 ## parse data from JSON-LD to DF to populate Postgres
 
-import pandas as pd
-from utils.utils import *
+from src.utils.utils import *
 import json
 
 def generate_dataframe_THES():

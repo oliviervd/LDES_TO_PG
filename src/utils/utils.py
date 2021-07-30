@@ -10,7 +10,7 @@ today = time.localtime()
 time_str = time.strftime("%m-%d-%YT%H:%M:%S.309Z", today)
 # fetch_from = time_str
 fetch_from = "2021-01-01T15:48:12.309Z"
-context = "/Users/huynslol/PycharmProjects/DASHBOARD/utils/context.jsonld"
+context = "/Users/huynslol/PycharmProjects/LDES_TO_PG/utils/context.jsonld"
 
 endpoints = {
     "DMG": f"actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
@@ -39,13 +39,13 @@ endpoints = {
 print(endpoints)
 
 filepath = {
-    "DMG": "/Users/huynslol/PycharmProjects/DASHBOARD/data/dmg_obj.json",
-    "HVA": "/Users/huynslol/PycharmProjects/DASHBOARD/data/hva_obj.json",
-    "STAM": "/Users/huynslol/PycharmProjects/DASHBOARD/data/stam_obj.json",
-    "IM": "/Users/huynslol/PycharmProjects/DASHBOARD/data/im_obj.json",
-    "ARCH": "/Users/huynslol/PycharmProjects/DASHBOARD/data/arch_obj.json",
-    "THES": "/Users/huynslol/PycharmProjects/DASHBOARD/data/thes.json",
-    "AGENT": "/Users/huynslol/PycharmProjects/DASHBOARD/data/agents.json"
+    "DMG": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/dmg_obj.json",
+    "HVA": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/hva_obj.json",
+    "STAM": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/stam_obj.json",
+    "IM": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/im_obj.json",
+    "ARCH": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/arch_obj.json",
+    "THES": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/thes.json",
+    "AGENT": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/agents.json"
 }
 
 columns_obj = ["URI", "timestamp", "@type", "owner", "objectnumber", "title", "object_name", "object_name_id", "creator", "creator_role", "creation_date", "creation_place",

@@ -1,5 +1,4 @@
-from utils.utils import fetch_json
-import argparse
+from src.utils.utils import fetch_json
 
 #todo: add archive
 keys = ["DMG", "HVA", "STAM", "IM", "THES", "AGENT", "ARCH"]
@@ -10,20 +9,20 @@ keys = ["DMG", "HVA", "STAM", "IM", "THES", "AGENT", "ARCH"]
 
 if __name__ == "__main__":
     try:
-        # fetch_json("IM")
-        # print("IM fetched")
-        # fetch_json("DMG")
-        # print("DMG fetched")
-        # fetch_json("HVA")
-        # print("HVA fetched")
-        # fetch_json("STAM")
-        # print("STAM fetched")
-        # fetch_json("AGENT")
-        # print("AGENTS fetched")
+        fetch_json("IM")
+        print("IM fetched")
+        fetch_json("DMG")
+        print("DMG fetched")
+        fetch_json("HVA")
+        print("HVA fetched")
+        fetch_json("STAM")
+        print("STAM fetched")
+        fetch_json("AGENT")
+        print("AGENTS fetched")
         fetch_json("THES")
         print("THES fetched")
-        # fetch_json("ARCH")
-        # print("ARCH fetched")
+        fetch_json("ARCH")
+        print("ARCH fetched")
 
     except Exception:
         pass

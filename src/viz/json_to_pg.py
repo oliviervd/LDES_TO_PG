@@ -6,7 +6,11 @@ from lib.parser.parser_dmg import generate_dataframe_DMG
 from lib.parser.parser_hva import generate_dataframe_hva
 from lib.parser.parser_stam import generate_dataframe_stam
 from lib.parser.parser_thes import generate_dataframe_THES
-# from lib.parser.parser_archief import
+from lib.parser.parser_agents import generate_dataframe_AGENTS
+
+
+
+# from src.parser.parser_archief import
 
 df_im = generate_dataframe_im()
 df_stam = generate_dataframe_stam()
@@ -14,6 +18,7 @@ df_dmg = generate_dataframe_DMG()
 df_hva = generate_dataframe_hva()
 # df_archief = generate_dataframe_archief()
 df_thes = generate_dataframe_THES()
+df_agents = generate_dataframe_AGENTS()
 df_all = pd.concat([df_dmg, df_im, df_hva, df_stam])
 
 ## jdbc:postgresql://localhost:5432/postgres

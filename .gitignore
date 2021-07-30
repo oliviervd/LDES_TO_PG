@@ -1,3 +1,10 @@
 # Project exclude paths
 /venv/
 /data/
+data/agents.json
+data/arch_obj.json
+data/dmg_obj.json
+data/hva_obj.json
+data/im_obj.json
+data/thes.json
+data/stam_obj.json

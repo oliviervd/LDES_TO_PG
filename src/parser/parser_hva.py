@@ -1,8 +1,7 @@
 #PARSE DATA FROM JSON TO DATAFRAME
 
 import json
-import pandas as pd
-from utils.utils import *
+from src.utils.utils import *
 pd.set_option('display.max_colwidth', None)
 
 def generate_dataframe_hva():

@@ -1,7 +1,6 @@
 #PARSE DATA FROM JSON TO DATAFRAME
 
-import pandas as pd
-from utils.utils import *
+from src.utils.utils import *
 import json
 
 def generate_dataframe_stam():
