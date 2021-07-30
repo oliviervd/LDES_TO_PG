@@ -2,7 +2,7 @@ import pandas as pd
 from skosprovider_getty.providers import AATProvider
 import numpy as np
 import regex as re
-from lib.viz.preprocessing import df_all
+from lib.viz.json_to_pg import df_all
 
 thes_1 = df_all.explode("object_name_id").fillna(0)
 df_on_trans = thes_1["object_name_id"]

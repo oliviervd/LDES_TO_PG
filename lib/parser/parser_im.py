@@ -22,13 +22,13 @@ def generate_dataframe_im():
         fetch_title(df_im, i, j)
         fetch_owner(df_im, i, j)
         fetch_objectname(df_im, i, j)
+        fetch_objectnaam_id(df_im, i, j)
         fetch_provenance(df_im, i, j)
         fetch_creator(df_im, i, j)
         fetch_creator_role(df_im,i ,j)
         fetch_creator_place(df_im, i, j)
         #fetch_provenance_date(df_dmg, i, j)
         fetch_material(df_im, i , j)
-        fetch_material_source(df_im, i , j)
         fetch_location(df_im, i , j)
         fetch_collection(df_im, i, j)
         fetch_description(df_im, i, j)
@@ -36,4 +36,3 @@ def generate_dataframe_im():
 
     return df_im
 
-#TODO: add to mongoDB

@@ -1,6 +1,6 @@
 import plotly.express as px
-from lib.viz.preprocessing import general_tracker
-from lib.viz.preprocessing import df_all
+from lib.viz.json_to_pg import general_tracker
+from lib.viz.json_to_pg import df_all
 
 ##general counter
 df_c = general_tracker()

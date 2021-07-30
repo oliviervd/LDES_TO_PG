@@ -16,20 +16,20 @@ def generate_dataframe_hva():
         j = json.loads(x[0])
 
         #URI
-        uri, type = j["@id"], j["@type"]
+        uri, type = j["http://purl.org/dc/terms/isVersionOf"]["@id"], j["@type"]
         df_hva.at[i, "URI"] = uri
         df_hva.at[i, "@type"] = type
 
         fetch_title(df_hva, i, j)
         fetch_owner(df_hva, i, j)
         fetch_objectname(df_hva, i, j)
+        fetch_objectnaam_id(df_hva, i, j)
         fetch_provenance(df_hva, i, j)
         fetch_creator(df_hva, i, j)
         fetch_creator_role(df_hva,i ,j)
         fetch_creator_place(df_hva, i, j)
         fetch_location(df_hva, i , j)
         fetch_material(df_hva, i , j)
-        fetch_material_source(df_hva, i, j)
         fetch_collection(df_hva, i, j)
         fetch_description(df_hva, i, j)
         fetch_timestamp(df_hva, i, j)
