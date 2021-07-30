@@ -1,14 +1,12 @@
 import pandas as pd
 from sqlalchemy import create_engine
 
-from lib.parser.parser_im import generate_dataframe_im
-from lib.parser.parser_dmg import generate_dataframe_DMG
-from lib.parser.parser_hva import generate_dataframe_hva
-from lib.parser.parser_stam import generate_dataframe_stam
-from lib.parser.parser_thes import generate_dataframe_THES
-from lib.parser.parser_agents import generate_dataframe_AGENTS
-
-
+from src.parser.parser_im import generate_dataframe_im
+from src.parser.parser_dmg import generate_dataframe_DMG
+from src.parser.parser_hva import generate_dataframe_hva
+from src.parser.parser_stam import generate_dataframe_stam
+from src.parser.parser_thes import generate_dataframe_thesaurus
+from src.parser.parser_agents import generate_dataframe_AGENTS
 
 # from src.parser.parser_archief import
 
@@ -17,7 +15,7 @@ df_stam = generate_dataframe_stam()
 df_dmg = generate_dataframe_DMG()
 df_hva = generate_dataframe_hva()
 # df_archief = generate_dataframe_archief()
-df_thes = generate_dataframe_THES()
+df_thes = generate_dataframe_thesaurus()
 df_agents = generate_dataframe_AGENTS()
 df_all = pd.concat([df_dmg, df_im, df_hva, df_stam])
 
@@ -27,6 +25,7 @@ engine = create_engine(post_gres_credentials)
 # df_stam.to_sql("ldes_stam", engine)
 # df_im.to_sql("ldes_im", engine)
 # df_hva.to_sql("ldes_hva", engine)
+
 
 def object_counter():
     try:
@@ -39,13 +38,13 @@ def object_counter():
     except Exception:
         pass
 
+
 def general_tracker():
     try:
         count_stam = len(df_stam["URI"])
         count_dmg = len(df_dmg["URI"])
         count_hva = len(df_hva["URI"])
         count_im = len(df_im["URI"])
-        total = count_im + count_dmg + count_hva + count_stam
 
         data = {
             "INST": ["STAM", "Design Museum Gent", "Huis van Alijn", "Industriemuseum"],

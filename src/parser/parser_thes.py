@@ -1,9 +1,9 @@
-## parse data from JSON-LD to DF to populate Postgres
-
 from src.utils.utils import *
 import json
 
-def generate_dataframe_THES():
+
+def generate_dataframe_thesaurus():
+    """generate dataframe and populate with data from LDES"""
     df_thes = pd.DataFrame(generate_dataframe("THES"))
 
     for i in range(0, len(columns_thes)):
@@ -18,10 +18,8 @@ def generate_dataframe_THES():
         df_thes.at[i, "URI"] = uri
 
         fetch_timestamp(df_thes, i, j)
-        fetch_thes_term(df_thes, i, j)
-        fetch_thes_ext_URI(df_thes, i, j)
-
-
+        fetch_thesaurus_term(df_thes, i, j)
+        fetch_thesaurus_external_uri(df_thes, i, j)
 
     return df_thes
 
