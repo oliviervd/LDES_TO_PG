@@ -27,6 +27,8 @@ if __name__ == "__main__":
         print("HVA fetched")
         fetch_json("STAM")
         print("STAM fetched")
+        fetch_json("ARCH")
+        print("STAM fetched")
         fetch_json("AGENT")
         print("AGENTS fetched")
         fetch_json("THES")

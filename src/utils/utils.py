@@ -46,7 +46,7 @@ filepath = {
     "AGENT": "data/agents.json"
 }
 
-# todo: add function to generat json files and data directory if not already created
+# todo: add function to generate json files and data directory if not already created
 # todo: fetch techniek
 # todo: add argparse
 

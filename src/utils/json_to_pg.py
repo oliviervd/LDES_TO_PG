@@ -19,7 +19,7 @@ df_thes = generate_dataframe_thesaurus()
 df_agents = generate_dataframe_AGENTS()
 df_all = pd.concat([df_dmg, df_im, df_hva, df_stam])
 
-post_gres_credentials = ""
+post_gres_credentials = "postgresql://postgres:co2etzee1648@localhost:5432/postgres"
 engine = create_engine(post_gres_credentials)
 # df_dmg.to_sql('ldes_dmg', engine)
 # df_stam.to_sql("ldes_stam", engine)
