@@ -58,7 +58,7 @@ columns_obj = ["URI", "timestamp", "@type", "owner", "objectnumber", "title", "o
 
 columns_thes = ["URI", "timestamp", "term", "ext_URI"]
 
-columns_agents = ["URI", "timestamp", "full name", "family_name", "sirname", "name (organisations)", "date_of_birt",
+columns_agents = ["URI", "timestamp", "full_name", "family_name", "sirname", "name (organisations)", "date_of_birt",
                   "date_of_death", "place of birt", "place of death", "nationality", "gender", "same_as"]
 
 
@@ -329,3 +329,42 @@ def fetch_thesaurus_external_uri(df, range, json):
 
 def safe_value(field_val):
     return field_val if not pd.isna(field_val) else "Other"
+
+def fetch_agent_fullname(df, range, json):
+    try:
+        full_name = json["https://data.vlaanderen.be/ns/persoon#volledigeNaam"]
+        df.at[range, "full_name"] = full_name
+    except Exception:
+        pass
+
+def fetch_agent_family_name(df, range, json):
+    try:
+        family_name = json["http://xmlns.com/foaf/0.1/familyName"]
+        df.at[range, "family_name"] = family_name
+    except Exception:
+        pass
+
+#todo
+def fetch_agent_first_name(df, range, json):
+    pass
+
+#todo
+def fetch_agent_birthdate(df, range, json):
+    pass
+
+#todo
+def fetch_agent_birthplace(df, range, json):
+    pass
+
+#todo
+def fetch_agent_date_of_death(df, range, json):
+    pass
+
+#todo
+def fetch_agent_deathplace(df, range, json):
+    pass
+
+#todo
+def fetch_agent_gender(df, range, json):
+    pass
+

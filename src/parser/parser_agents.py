@@ -12,6 +12,13 @@ def generate_dataframe_AGENTS():
         x = df_agents.loc[i]
         j = json.loads(x[0])
 
+        uri, type = j["@id"], j["@type"]
+        df_agents.at[i, "URI"] = uri
+        df_agents.at[i, "@type"] = type
+
+        fetch_agent_fullname(df_agents, i, j)
+        fetch_agent_family_name(df_agents, i, j)
+
     return df_agents
 
 generate_dataframe_AGENTS()
