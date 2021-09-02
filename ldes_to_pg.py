@@ -17,24 +17,26 @@ if __name__ == "__main__":
     parser.add_argument("--result", choices=["pg", "csv", "xlsx"])
     args = parser.parse_args()
 
+    #IM + HVA; laatste maal 28-08
+    #STAM; 30-08
 
     try:
-        fetch_json("IM")
-        print("IM fetched")
-        fetch_json("DMG")
-        print("DMG fetched")
-        fetch_json("HVA")
-        print("HVA fetched")
-        fetch_json("STAM")
-        print("STAM fetched")
-        fetch_json("ARCH")
-        print("STAM fetched")
+        # fetch_json("IM")
+        # print("IM fetched")
+        # fetch_json("DMG")
+        # print("DMG fetched")
+        # fetch_json("HVA")
+        # print("HVA fetched")
+        # fetch_json("STAM")
+        # print("STAM fetched")
+        # fetch_json("ARCH")
+        # print("STAM fetched")
         fetch_json("AGENT")
         print("AGENTS fetched")
-        fetch_json("THES")
-        print("THES fetched")
-        fetch_json("ARCH")
-        print("ARCH fetched")
+        # fetch_json("THES")
+        # print("THES fetched")
+        # fetch_json("ARCH")
+        # print("ARCH fetched")
 
     except Exception:
         pass

@@ -12,38 +12,38 @@ context = "src/utils/context.jsonld"
 endpoints = {
     # CLI commands to fetch LDES from actor-init-ldes-client
     "DMG": f"actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-            f"" + context + " --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
+            f"" + context + " --fromTime " + fetch_from + " --emitMemberOnce false --disablePolling true"
             f" https://apidg.gent.be/opendata/adlib2eventstream/v1/dmg/objecten",
     "HVA": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-            + context + " --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
+            + context + " --fromTime " + fetch_from + " --emitMemberOnce false --disablePolling true"
             " https://apidg.gent.be/opendata/adlib2eventstream/v1/hva/objecten",
     "STAM": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-            + context + "  --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
+            + context + "  --fromTime " + fetch_from + " --emitMemberOnce false --disablePolling true"
             " https://apidg.gent.be/opendata/adlib2eventstream/v1/stam/objecten",
     "IM": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-            + context + "   --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
+            + context + "   --fromTime " + fetch_from + " --emitMemberOnce false --disablePolling true"
             " https://apidg.gent.be/opendata/adlib2eventstream/v1/industriemuseum/objecten",
     "ARCH": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-            + context + "   --fromTime  "+ fetch_from +" --emitMemberOnce true --disablePolling true"
+            + context + "   --fromTime  "+ fetch_from +" --emitMemberOnce false --disablePolling true"
             " https://apidg.gent.be/opendata/adlib2eventstream/v1/archiefgent/objecten",
     "THES": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-            + context + "   --fromTime "+ fetch_from + " --emitMemberOnce true --disablePolling true"
+            + context + "   --fromTime "+ fetch_from + " --emitMemberOnce false --disablePolling true"
             " https://apidg.gent.be/opendata/adlib2eventstream/v1/adlib/thesaurus",
     "AGENT": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-            +  context + "  --fromTime " + fetch_from + " --emitMemberOnce true --disablePolling true"
+            +  context + "  --fromTime " + fetch_from + " --emitMemberOnce false --disablePolling true"
             " https://apidg.gent.be/opendata/adlib2eventstream/v1/adlib/personen"
 }
 
 print(endpoints)
 
 filepath = {
-    "DMG": "data/dmg_obj.json",
-    "HVA": "data/hva_obj.json",
-    "STAM": "data/stam_obj.json",
-    "IM": "data/im_obj.json",
-    "ARCH": "data/arch_obj.json",
-    "THES": "data/thes.json",
-    "AGENT": "data/agents.json"
+    "DMG": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/dmg_obj.json",
+    "HVA": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/hva_obj.json",
+    "STAM": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/stam_obj.json",
+    "IM": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/im_obj.json",
+    "ARCH": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/arch_obj.json",
+    "THES": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/thes.json",
+    "AGENT": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/agents.json"
 }
 
 # todo: add function to generate json files and data directory if not already created
