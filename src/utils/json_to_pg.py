@@ -67,3 +67,4 @@ df_stam_final_len = len(df_stam.URI.unique())
 # df_dmg_final = df_dmg.groupby(["URI"], sort=False)["timestamp"].max()
 df_dmg_final = df_dmg.groupby(["URI"], sort=False, as_index=False)["timestamp"].max()
 # df_d_final = pd.merge(df_dmg, df_dmg_final_2, how='left', left_on=["URI", "timestamp"], right_on=["URI", "timestamp"])
+

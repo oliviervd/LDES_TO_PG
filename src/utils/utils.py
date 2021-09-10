@@ -58,8 +58,8 @@ columns_obj = ["URI", "timestamp", "@type", "owner", "objectnumber", "title", "o
 
 columns_thes = ["URI", "timestamp", "term", "ext_URI"]
 
-columns_agents = ["URI", "timestamp", "full_name", "family_name", "sirname", "name (organisations)", "date_of_birt",
-                  "date_of_death", "place of birt", "place of death", "nationality", "gender", "same_as"]
+columns_agents = ["URI", "timestamp", "full_name", "family_name", "sirname", "name (organisations)", "date_of_birth",
+                  "date_of_death", "place_of_birth", "place_of_death", "nationality", "gender", "same_as"]
 
 
 def fetch_json(key):
@@ -344,25 +344,48 @@ def fetch_agent_family_name(df, range, json):
     except Exception:
         pass
 
-#todo
 def fetch_agent_first_name(df, range, json):
-    pass
+    try:
+        first_name = json["http://xmlns.com/foaf/0.1/givenName"]
+        df.at[range, "sirname"] = first_name
+    except Exception:
+        pass
 
-#todo
+def fetch_agent_same_as(df, range, json):
+    try:
+        same_as = json["prov:wasAttributedTo"]["@id"]
+        df.at[range, "same_as"] = same_as
+    except Exception:
+        pass
+
 def fetch_agent_birthdate(df, range, json):
-    pass
+    try:
+        b_date = json["https://data.vlaanderen.be/ns/persoon#heeftGeboorte"]["datum"]
+        df.at[range,"date_of_birth"] = b_date
+    except Exception:
+        pass
 
-#todo
+
 def fetch_agent_birthplace(df, range, json):
-    pass
+    try:
+        b_place = json["https://data.vlaanderen.be/ns/persoon#heeftGeboorte"]["https://data.vlaanderen.be/ns/persoon#plaats"]["@id"]
+        df.at[range,"place_of_birth"] = b_place
+    except Exception:
+        pass
 
-#todo
 def fetch_agent_date_of_death(df, range, json):
-    pass
+    try:
+        d_date = json["https://data.vlaanderen.be/ns/persoon#heeftOverlijden"]["datum"]
+        df.at[range, "date_of_death"] = d_date
+    except Exception:
+        pass
 
-#todo
 def fetch_agent_deathplace(df, range, json):
-    pass
+    try:
+        d_place = json["https://data.vlaanderen.be/ns/persoon#heeftOverlijden"]["https://data.vlaanderen.be/ns/persoon#plaats"]["@id"]
+        df.at[range,"place_of_death"] = d_place
+    except Exception:
+        pass
 
 #todo
 def fetch_agent_gender(df, range, json):

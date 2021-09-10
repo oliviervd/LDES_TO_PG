@@ -18,6 +18,12 @@ def generate_dataframe_AGENTS():
 
         fetch_agent_fullname(df_agents, i, j)
         fetch_agent_family_name(df_agents, i, j)
+        fetch_agent_first_name(df_agents, i, j)
+        fetch_agent_same_as(df_agents, i, j)
+        fetch_agent_birthdate(df_agents, i, j)
+        fetch_agent_birthplace(df_agents, i, j)
+        fetch_agent_deathplace(df_agents, i, j)
+        fetch_agent_date_of_death(df_agents, i, j)
 
     return df_agents
 
