@@ -17,7 +17,7 @@ def generate_dataframe_stam():
         #URI
         uri, type = j["http://purl.org/dc/terms/isVersionOf"]["@id"], j["@type"]
         df_stam.at[i, "URI"] = uri
-        df_stam.at[i, "@yppe"] = type
+        df_stam.at[i, "@type"] = type
 
         fetch_title(df_stam, i, j)
         fetch_owner(df_stam, i, j)

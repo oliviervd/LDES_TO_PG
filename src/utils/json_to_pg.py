@@ -7,6 +7,7 @@ from src.parser.parser_hva import generate_dataframe_hva
 from src.parser.parser_stam import generate_dataframe_stam
 from src.parser.parser_thes import generate_dataframe_thesaurus
 from src.parser.parser_agents import generate_dataframe_AGENTS
+from src.parser.parser_archief import generate_dataframe_ARCH
 
 # from src.parser.parser_archief import
 
@@ -14,18 +15,22 @@ df_im = generate_dataframe_im()
 df_stam = generate_dataframe_stam()
 df_dmg = generate_dataframe_DMG()
 df_hva = generate_dataframe_hva()
-# df_archief = generate_dataframe_archief()
+df_archief = generate_dataframe_ARCH()
 df_thes = generate_dataframe_thesaurus()
 df_agents = generate_dataframe_AGENTS()
 df_all = pd.concat([df_dmg, df_im, df_hva, df_stam])
 
-# post_gres_credentials = "postgresql://postgres:co2etzee1648@localhost:5432/postgres"
-# engine = create_engine(post_gres_credentials)
-#
+post_gres_credentials = "postgresql://postgres:co2etzee1648@localhost:5432/postgres"
+engine = create_engine(post_gres_credentials)
+
 # df_dmg.to_sql('ldes_dmg', engine)
 # df_stam.to_sql("ldes_stam", engine)
 # df_im.to_sql("ldes_im", engine)
 # df_hva.to_sql("ldes_hva", engine)
+#todo: df_archief.to_sql("ldes_archief", engine)
+df_agents.to_sql("ldes_agents", engine)
+df_thes.to_sql("ldes_thes", engine)
+df_all.to_sql("ldes_all", engine)
 
 
 def object_counter():
@@ -34,7 +39,8 @@ def object_counter():
         count_dmg = len(df_dmg["URI"])
         count_hva = len(df_hva["URI"])
         count_im = len(df_im["URI"])
-        total = count_im + count_dmg + count_hva + count_stam
+        count_archief = len(df_archief["URI"])
+        total = count_im + count_dmg + count_hva + count_stam + count_archief
         return total
     except Exception:
         pass
@@ -46,10 +52,11 @@ def general_tracker():
         count_dmg = len(df_dmg["URI"])
         count_hva = len(df_hva["URI"])
         count_im = len(df_im["URI"])
+        count_archief = len(df_archief["URI"])
 
         data = {
-            "INST": ["STAM", "Design Museum Gent", "Huis van Alijn", "Industriemuseum"],
-            "object_count": [count_stam, count_dmg, count_hva, count_im]
+            "INST": ["STAM", "Design Museum Gent", "Huis van Alijn", "Industriemuseum", "Archief"],
+            "object_count": [count_stam, count_dmg, count_hva, count_im, count_archief]
         }
 
         df_count = pd.DataFrame(data, columns=["INST", "object_count"])
@@ -58,11 +65,13 @@ def general_tracker():
     except Exception:
         pass
 
+general_tracker()
 
 df_dmg_final_len = len(df_dmg.URI.unique())
 df_hva_final_len = len(df_hva.URI.unique())
 df_im_final_len = len(df_im.URI.unique())
 df_stam_final_len = len(df_stam.URI.unique())
+df_archief_final_len = len(df_archief.URI.unique())
 
 # df_dmg_final = df_dmg.groupby(["URI"], sort=False)["timestamp"].max()
 df_dmg_final = df_dmg.groupby(["URI"], sort=False, as_index=False)["timestamp"].max()
