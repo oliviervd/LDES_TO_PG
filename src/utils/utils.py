@@ -353,7 +353,7 @@ def fetch_agent_first_name(df, range, json):
 
 def fetch_agent_same_as(df, range, json):
     try:
-        same_as = json["prov:wasAttributedTo"]["@id"]
+        same_as = json["http://www.w3.org/2002/07/owl#sameAs"]
         df.at[range, "same_as"] = same_as
     except Exception:
         pass

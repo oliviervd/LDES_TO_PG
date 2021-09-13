@@ -28,9 +28,9 @@ engine = create_engine(post_gres_credentials)
 # df_im.to_sql("ldes_im", engine)
 # df_hva.to_sql("ldes_hva", engine)
 #todo: df_archief.to_sql("ldes_archief", engine)
-df_agents.to_sql("ldes_agents", engine)
-df_thes.to_sql("ldes_thes", engine)
-df_all.to_sql("ldes_all", engine)
+# df_agents.to_sql("ldes_agents", engine)
+# df_thes.to_sql("ldes_thes", engine)
+# df_all.to_sql("ldes_all", engine)
 
 
 def object_counter():
