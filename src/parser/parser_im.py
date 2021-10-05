@@ -26,6 +26,7 @@ def generate_dataframe_im():
         fetch_creator(df_im, i, j)
         fetch_creator_role(df_im,i ,j)
         fetch_creator_place(df_im, i, j)
+        fetch_creation_date(df_im, i, j)
         #fetch_provenance_date(df_dmg, i, j)
         fetch_material(df_im, i , j)
         fetch_location(df_im, i , j)

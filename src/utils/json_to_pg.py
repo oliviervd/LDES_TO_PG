@@ -18,19 +18,17 @@ df_hva = generate_dataframe_hva()
 df_archief = generate_dataframe_ARCH()
 df_thes = generate_dataframe_thesaurus()
 df_agents = generate_dataframe_AGENTS()
-df_all = pd.concat([df_dmg, df_im, df_hva, df_stam])
 
 post_gres_credentials = "postgresql://postgres:co2etzee1648@localhost:5432/postgres"
 engine = create_engine(post_gres_credentials)
 
-# df_dmg.to_sql('ldes_dmg', engine)
-# df_stam.to_sql("ldes_stam", engine)
-# df_im.to_sql("ldes_im", engine)
-# df_hva.to_sql("ldes_hva", engine)
-#todo: df_archief.to_sql("ldes_archief", engine)
-# df_agents.to_sql("ldes_agents", engine)
-# df_thes.to_sql("ldes_thes", engine)
-# df_all.to_sql("ldes_all", engine)
+#df_dmg.to_sql('ldes_dmg', engine, if_exists="append")
+#df_stam.to_sql("ldes_stam", engine, if_exists="append")
+#df_im.to_sql("ldes_im", engine, if_exists="append")
+#df_hva.to_sql("ldes_hva", engine, if_exists="append")
+df_archief.to_sql("ldes_archief", engine, if_exists="append")
+#df_agents.to_sql("ldes_agents", engine, if_exists="append")
+#df_thes.to_sql("ldes_thes", engine, if_exists="append")
 
 
 def object_counter():

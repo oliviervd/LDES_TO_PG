@@ -27,6 +27,7 @@ def generate_dataframe_hva():
         fetch_creator(df_hva, i, j)
         fetch_creator_role(df_hva,i ,j)
         fetch_creator_place(df_hva, i, j)
+        fetch_creation_date(df_hva, i, j)
         fetch_location(df_hva, i , j)
         fetch_material(df_hva, i , j)
         fetch_collection(df_hva, i, j)

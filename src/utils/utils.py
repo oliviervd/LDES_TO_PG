@@ -5,8 +5,8 @@ import pandas as pd
 today = time.localtime()
 time_str = time.strftime("%m-%d-%YT%H:%M:%S.309Z", today)
 
-# define time from when to start fetching LDES.
-fetch_from = "2021-01-01T15:48:12.309Z"
+# define time from when to start fetching LDES.#
+fetch_from = "2021-09-29T15:48:12.309Z" ## change to 29 september 2021
 context = "src/utils/context.jsonld"
 
 endpoints = {

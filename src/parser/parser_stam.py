@@ -26,6 +26,7 @@ def generate_dataframe_stam():
         fetch_creator(df_stam, i, j)
         fetch_creator_role(df_stam,i ,j)
         fetch_creator_place(df_stam, i, j)
+        fetch_creation_date(df_stam, i, j)
         #fetch_provenance_date(df_stam, i, j)
         fetch_material(df_stam, i , j)
         fetch_location(df_stam, i , j)
