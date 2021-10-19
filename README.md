@@ -15,7 +15,7 @@ Available collections:
 
 | Parameter | Description | Possible values |
 |---------|-----------|----------|
-|--fetch|define collectiions to fetch from CoGhent LDES |DMG, HVA, STAM, IM, ARCHIEF, THESAURUS, AGENTS|
+|--fetch|define collections to fetch from CoGhent LDES |DMG, HVA, STAM, IM, ARCHIEF, THESAURUS, AGENTS|
 |--timestamp |datetime to prune relations that have a lower datetime value |for example: 2020-01-01T00:00:00, default = "2021-01-01T15:48:12.309Z"|
 |--result |define the wished for result (pg=postrgres)|pg, csv, xlsx|
 
