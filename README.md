@@ -1,4 +1,4 @@
-# LDES_TO_PG [WORK IN PROGRESS]
+# LDES_TO_PG
 
 replicate coghent Linked Data Event Streams into PostgreSQL docker container or export as csv, xcel. 
 
