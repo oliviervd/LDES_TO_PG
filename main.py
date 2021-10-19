@@ -1,3 +1,5 @@
+import sys
+
 from src.utils.utils import fetch_json
 import argparse
 import os
@@ -25,7 +27,13 @@ if __name__ == "__main__":
     #STAM; 30-08
 
     ROOT_DIR = os.path.abspath(os.curdir)
-    path = ROOT_DIR + "/data"
+
+    ## check which platform to define path structure.
+    if sys.platform == "darwin":
+        path = ROOT_DIR + "/data"
+    else:
+        path = ROOT_DIR + "\data"
+
     if not os.path.exists(path):
         os.mkdir(path)
 
