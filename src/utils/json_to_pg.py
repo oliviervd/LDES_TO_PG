@@ -26,7 +26,7 @@ engine = create_engine(post_gres_credentials)
 #df_stam.to_sql("ldes_stam", engine, if_exists="append")
 #df_im.to_sql("ldes_im", engine, if_exists="append")
 #df_hva.to_sql("ldes_hva", engine, if_exists="append")
-df_archief.to_sql("ldes_archief", engine, if_exists="append")
+#df_archief.to_sql("ldes_archief", engine, if_exists="append")
 #df_agents.to_sql("ldes_agents", engine, if_exists="append")
 #df_thes.to_sql("ldes_thes", engine, if_exists="append")
 

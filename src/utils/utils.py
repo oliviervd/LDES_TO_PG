@@ -6,13 +6,13 @@ today = time.localtime()
 time_str = time.strftime("%m-%d-%YT%H:%M:%S.309Z", today)
 
 # define time from when to start fetching LDES.#
-fetch_from = "2021-09-29T15:48:12.309Z" ## change to 29 september 2021
+fetch_from = "2021-01-01T15:48:12.309Z" ## change to 29 september 2021
 context = "src/utils/context.jsonld"
 
 endpoints = {
     # CLI commands to fetch LDES from actor-init-ldes-client
     "DMG": f"actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
-            f"" + context + " --fromTime " + fetch_from + " --emitMemberOnce false --disablePolling true"
+            + context + " --fromTime " + fetch_from + " --emitMemberOnce false --disablePolling true"
             f" https://apidg.gent.be/opendata/adlib2eventstream/v1/dmg/objecten",
     "HVA": "actor-init-ldes-client --pollingInterval 5000 --mimeType application/ld+json --context "
             + context + " --fromTime " + fetch_from + " --emitMemberOnce false --disablePolling true"
