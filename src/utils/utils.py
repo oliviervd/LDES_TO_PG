@@ -1,6 +1,7 @@
 import time
 import subprocess
 import pandas as pd
+import os
 
 today = time.localtime()
 time_str = time.strftime("%m-%d-%YT%H:%M:%S.309Z", today)
@@ -34,19 +35,21 @@ endpoints = {
             " https://apidg.gent.be/opendata/adlib2eventstream/v1/adlib/personen"
 }
 
-print(endpoints)
+ROOT_DIR = os.path.abspath(os.curdir)
 
 filepath = {
-    "DMG": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/dmg_obj.json",
-    "HVA": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/hva_obj.json",
-    "STAM": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/stam_obj.json",
-    "IM": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/im_obj.json",
-    "ARCH": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/arch_obj.json",
-    "THES": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/thes.json",
-    "AGENT": "/Users/huynslol/PycharmProjects/LDES_TO_PG/data/agents.json"
+    "DMG": ROOT_DIR + "/data/dmg_obj.json",
+    "HVA": ROOT_DIR + "/data/hva_obj.json",
+    "STAM": ROOT_DIR + "/data/stam_obj.json",
+    "IM": ROOT_DIR + "/data/im_obj.json",
+    "ARCH": ROOT_DIR + "/data/arch_obj.json",
+    "THES": ROOT_DIR + "/data/thes.json",
+    "AGENT": ROOT_DIR + "/data/agents.json"
 }
 
 # todo: add function to generate json files and data directory if not already created
+# todo: check if windows or linux
+
 # todo: fetch techniek
 # todo: add argparse
 
@@ -65,6 +68,8 @@ columns_agents = ["URI", "timestamp", "full_name", "family_name", "sirname", "na
 def fetch_json(key):
     """read json from command line interface and write to .json file"""
     with open(filepath[key], "w") as f:
+        if not os.path.exists(filepath[key]):
+            file(filepath[key], 'w').close()
         p = subprocess.run(endpoints[key], shell=True, stdout=f, text=True)
 
 
