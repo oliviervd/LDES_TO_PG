@@ -25,7 +25,7 @@ Available collections:
 
 for example if you want to fetch data from Design Museum Gent en Huis Van Alijn starting from 15 november 2021 you use the following line of code in CLI:
 
-`python3 ldes-to-pg.py --fetch DMG --fetch HVA --timestamp 2021-10-10T15:48:12.309Z`
+ `python3 ldes-to-pg.py --fetch DMG --timestamp 2021-10-10T15:48:12.309Z`
 
 ## License
 This project is released as an open-source project under the MIT License
