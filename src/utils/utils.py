@@ -3,11 +3,12 @@ import subprocess
 import pandas as pd
 import os
 
+
 today = time.localtime()
 time_str = time.strftime("%m-%d-%YT%H:%M:%S.309Z", today)
 
 # define time from when to start fetching LDES.#
-fetch_from = "2021-01-01T15:48:12.309Z" ## change to 29 september 2021
+fetch_from = "2021-10-20T00:00:00.309Z" ## change to 29 september 2021
 context = "src/utils/context.jsonld"
 
 endpoints = {
@@ -47,13 +48,6 @@ filepath = {
     "AGENT": ROOT_DIR + "/data/agents.json"
 }
 
-# todo: add function to generate json files and data directory if not already created
-# todo: check if windows or linux
-
-# todo: fetch techniek
-# todo: add argparse
-
-
 # define columns to for dataframes
 columns_obj = ["URI", "timestamp", "@type", "owner", "objectnumber", "title", "object_name", "object_name_id",
                "creator", "creator_role", "creation_date", "creation_place","provenance_date", "provenance_type",
@@ -85,8 +79,13 @@ def generate_dataframe(key):
 def fetch_objectnumber(df, range, json):
     """parse object number from json"""
     try:
-        object_number = json["Object.identificator"]["Identificator.identificator"]
-        df.at[range, "objectnumber"] = object_number
+        object_number = json["Entiteit.identificator"]
+        for x in object_number:
+            try:
+                df.at[range, "objectnumber"] = x["skos:notation"]["@value"]
+            except Exception:
+                pass
+
     except Exception:
         pass
 
