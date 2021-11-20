@@ -16,6 +16,7 @@ def generate_dataframe_AGENTS():
         df_agents.at[i, "URI"] = uri
         df_agents.at[i, "@type"] = type
 
+        fetch_timestamp(df_agents, i, j)
         fetch_agent_fullname(df_agents, i, j)
         fetch_agent_family_name(df_agents, i, j)
         fetch_agent_first_name(df_agents, i, j)

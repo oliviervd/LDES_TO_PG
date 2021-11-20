@@ -56,7 +56,7 @@ columns_obj = ["URI", "timestamp", "@type", "owner", "objectnumber", "title", "o
 columns_thes = ["URI", "timestamp", "term", "ext_URI"]
 
 columns_agents = ["URI", "timestamp", "full_name", "family_name", "sirname", "name (organisations)", "date_of_birth",
-                  "date_of_death", "place_of_birth", "place_of_death", "nationality", "gender", "same_as"]
+                  "date_of_death", "place_of_birth", "place_of_death", "nationality", "gender","ulan", "wikidata","rkd", "same_as"]
 
 
 def fetch_json(key):
@@ -180,24 +180,21 @@ def fetch_timestamp(df, range, json):
         pass
 
 
-def fetch_creator(df, range, json):
+def fetch_creators(df, range, json):
     creators = []
     try:
-        creator = json["MaterieelDing.productie"]["Activiteit.uitgevoerdDoor"]
-        for c in creator:
-            creators.append(c["http://www.w3.org/2000/01/rdf-schema#label"]["@value"])
-        df.at[range, "creator"] = creators
+         for i in json["MaterieelDing.productie"]:
+            cr = i["Activiteit.uitgevoerdDoor"]
+            try:
+                 for a in cr:
+                     crea = a["https://linked.art/ns/terms/equivalent"]["label"]["@value"]
+                     creators.append(crea)
+            except:
+                crea = a["https://linked.art/ns/terms/equivalent"]["label"]["@value"]
+                creators.append(crea)
+            df.at[range, "creator"] = creators
     except Exception:
-        try:
-            for i in json["MaterieelDing.productie"]:
-                cr = i["Activiteit.uitgevoerdDoor"]
-                for a in cr:
-                    crea = a["http://www.w3.org/2000/01/rdf-schema#label"]["@value"]
-                    creators.append(crea)
-                    df.at[range, "creator"] = creators
-        except Exception:
-            pass
-
+        pass
 
 def fetch_creator_role(df, range, json):
     creator_role = []
@@ -210,7 +207,7 @@ def fetch_creator_role(df, range, json):
             for i in json["MaterieelDing.productie"]:
                 role = i["@type"]
                 creator_role.append(role)
-                df.at[range, "creator_role"] = creator_role
+            df.at[range, "creator_role"] = creator_role
         except Exception:
             pass
 
@@ -357,14 +354,25 @@ def fetch_agent_first_name(df, range, json):
 
 def fetch_agent_same_as(df, range, json):
     try:
-        same_as = json["http://www.w3.org/2002/07/owl#sameAs"]
-        df.at[range, "same_as"] = same_as
+        _list = []
+        for i in json["http://www.w3.org/2002/07/owl#sameAs"]:
+            same_as = i["@id"]
+            _list.append(same_as)
+            ulan = [k for k in _list if 'ulan' in k]
+            wikidata = [w for w in _list if 'wikidata' in w]
+            rkd = [v for v in _list if 'rkd' in v]
+        df.at[range, "same_as"] = _list
+        df.at[range, "ulan"] = ulan
+        df.at[range, "wikidata"] = wikidata
+        df.at[range, "rkd"] = rkd
+
     except Exception:
         pass
 
+
 def fetch_agent_birthdate(df, range, json):
     try:
-        b_date = json["https://data.vlaanderen.be/ns/persoon#heeftGeboorte"]["datum"]
+        b_date = json["https://data.vlaanderen.be/ns/persoon#heeftGeboorte"]["https://data.vlaanderen.be/ns/persoon#datum"]["@value"]
         df.at[range,"date_of_birth"] = b_date
     except Exception:
         pass
@@ -379,7 +387,7 @@ def fetch_agent_birthplace(df, range, json):
 
 def fetch_agent_date_of_death(df, range, json):
     try:
-        d_date = json["https://data.vlaanderen.be/ns/persoon#heeftOverlijden"]["datum"]
+        d_date = json["https://data.vlaanderen.be/ns/persoon#heeftOverlijden"]["https://data.vlaanderen.be/ns/persoon#datum"]["@value"]
         df.at[range, "date_of_death"] = d_date
     except Exception:
         pass
