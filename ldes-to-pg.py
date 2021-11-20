@@ -30,9 +30,9 @@ if __name__ == "__main__":
 
     ## check which platform to define path structure.
     if sys.platform == "darwin":
-        path = ROOT_DIR + "/data"
+        path = ROOT_DIR + "/src/utils/data"
     else:
-        path = ROOT_DIR + "\data"
+        path = ROOT_DIR + "\\src\\utils\\data"
 
     if not os.path.exists(path):
         os.mkdir(path)
