@@ -30,7 +30,7 @@ def generate_dataframe_DMG():
 
         fetch_provenance(df_dmg, i, j)
 
-        fetch_creator(df_dmg, i, j)
+        fetch_creators(df_dmg, i, j)
         fetch_creation_date(df_dmg, i, j)
         fetch_creator_role(df_dmg,i ,j)
         fetch_creator_place(df_dmg, i, j)
