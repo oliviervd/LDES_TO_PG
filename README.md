@@ -14,6 +14,7 @@ Available collections:
 |||
 |THES | thesaurus (conceptlist)|
 |AGENTS | agent list|
+|EXHIBITIONS|list of exhibitions (restricted to Design Museum Gent )|
 
 ## USAGE 
 
