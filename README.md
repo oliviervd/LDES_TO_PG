@@ -1,6 +1,6 @@
 # LDES_TO_PG
 
-replicate CoGhent Linked Data Event Streams into dataframe (postgresql, csv, excel)
+replicate CoGhent Linked Data Event Streams into tabular dataframe (postgresql, csv, excel)
 
 Available collections:
 
